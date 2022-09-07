@@ -1,0 +1,121 @@
+html {
+    background: white;
+}
+* {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background:url(https://img.freepik.com/free-vector/abstract-duotone-background-with-motion-lines-effect_1017-30154.jpg?w=2000);
+    width: auto;
+    height: 690px;
+    border: 2px solid black;
+}
+
+.time_info {
+    animation: 3s background_animate linear infinite;
+    background-size: 2000% auto;
+    background-color: #85FFBD;
+    background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+    height: 250px;
+}
+
+@keyframes background_animate {
+    0% {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 70%;
+    }
+}
+
+#UTCday {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#UTCday:hover {
+    color: red;
+}
+
+#digital_clock {
+    width: 100%;
+    height: 10vh;
+    display: block;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+#digital_clock:hover {
+    color: red;
+
+}
+
+#footer_web {
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.opening {
+    display: flex;
+    justify-content: center;
+    font: 800 2rem "Monstercat";
+    background: linear-gradient(to right, #06599b 10%, #01ef96 50%, #06599b 90%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+    to {
+        background-position: 200% center;
+    }
+}
+
+i {
+    font-size: 10vh;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.login_section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.title_opening {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    background-image: url(https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1);
+
+}
+
+.title_opening_h1 {
+    color: wheat;
+    margin: 10px;
+    padding: 45px
+}
+
+#user,
+#pass {
+    width: auto;
+    height: 25px;
+}

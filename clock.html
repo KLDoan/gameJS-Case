@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock</title>
+    <script src="clock.js"></script>
+    <link rel="stylesheet" href="clock.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <!-- opening -->
+
+    <div class="title_opening">
+        <h1 class="title_opening_h1">Nice to see you in Digital auto clock and login</h1>
+    </div>
+
+    <!-- end opeoning -->
+    <!-- clock -->
+    <div class="time_info">
+        <h1 class="opening" style="padding-top: 10px;">Today time is</h1>
+
+        <div id="UTCday">
+            <h2 id="day" style="padding-right:20px"></h2>
+            <i class="fa-solid fa-calendar-days" style="margin-bottom: 20px;"></i>
+        </div>
+        <div id="digital_clock">
+            <h2 id="clock" style="padding-right:20px ;"></h2>
+            <i class="fa-solid fa-clock"></i>
+        </div>
+
+    </div>
+    <!-- end clock -->
+    <!-- footer -->
+
+    <footer id="footer_web" onmouseover="text_over()" onmouseout="text_out()">This had been
+        created by LongDoan(@KheLong) in 24/7/2022 on 6.37pm</footer>
+    <div class="btn"> <button type="submit" id="btn_reset" onclick="reset_text()">Click here to reset the text
+            above</button>
+    </div>
+
+    <!-- end footer -->
+    <!-- login -->
+    <h1 style="display: flex;">Login</h1>
+
+    <div class="login_section">
+        <input type="text" id="user" placeholder="Username" style="padding-right: 10px;">
+        <input type="text" id="pass" placeholder="Passwords">
+        <button onclick="Login()" style="height: 32px;">Login Now !!!</button>
+    </div>
+    <script>
+        function Login() {
+            let user = document.getElementById("user").value
+            let user_pass = document.getElementById("pass").value
+            if (user == "admin" && user_pass == "admin") {
+                alert("hello");
+                window.location.href = "https://www.facebook.com/";
+            }
+            else {
+                alert("Wrong user, login again please")
+            }
+        }
+    </script>
+</body>
+
+</html>

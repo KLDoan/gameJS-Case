@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Nunito+Sans:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            font-family: "Nunito Sans", sans-serif;
+            background-image: linear-gradient(to bottom right, #67b26f, #4ca2cd);
+        }
+
+        /* =========== START GAME =========== */
+        #start-game {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            color: #333;
+        }
+
+        #start-game h1 {
+            font-family: "Bungee Inline", sans-serif;
+            font-size: 4rem;
+            color: #fff;
+            margin-bottom: 4rem;
+        }
+
+        .level-container {
+            width: 100%;
+            padding: 50px 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            background-color: #fff;
+        }
+
+        .level-container p {
+            font-size: 2rem;
+            font-family: "Bungee Inline", sans-serif;
+        }
+
+        .select-container {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #level-option {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+        }
+
+        #btn-start-game {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* =========== PLAY GAME =========== */
+        #game {
+            display: none;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .control {
+            flex: 0 0 20%;
+            background-color: #fff;
+            height: 100%;
+        }
+
+        .control h1 {
+            font-family: "Bungee Inline", sans-serif;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .time-game,
+        .step-game {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        #time,
+        #step {
+            font-size: 1.5rem;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            flex: 0 0 80%;
+        }
+
+
+        .memory-game {
+            display: grid;
+            gap: 10px;
+            perspective: 1000px;
+        }
+
+        .memory-card {
+            width: 190px;
+            height: 250px;
+            position: relative;
+            margin: 5px;
+            transform: scale(1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .memory-card:active {
+            transform: scale(0.97);
+            transition: transform 0.2s;
+        }
+
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+
+        .front-face,
+        .back-face {
+            position: absolute;
+            max-width: 100%;
+            backface-visibility: hidden;
+            width: 190px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .front-face {
+            transform: rotateY(180deg);
+        }
+
+        /* =========== END GAME =========== */
+        #end-game {
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info {
+            background-color: #fff;
+            width: 100%;
+            padding: 50px 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #btn-play-again,
+        #btn-reload {
+            display: inline-block;
+            width: 130px;
+            height: 50px;
+            margin: 0 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .info h1 {
+            font-family: "Bungee Inline", sans-serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .time-box,
+        .step-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 1rem;
+        }
+
+        .time-box p,
+        .step-box p {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Bắt đầu game -->
+    <div id="start-game">
+        <h1>Memomry card</h1>
+        <div class="level-container">
+            <p>Chọn level game</p>
+            <div class="select-container">
+                <img src="https://img.icons8.com/nolan/64/controller.png" />
+                <select id="level-option">
+                    <option value="2">4 Cards</option>
+                    <option value="4">8 Cards</option>
+                    <option value="6">12 Cards</option>
+                </select>
+            </div>
+            <button id="btn-start-game">Bắt đầu</button>
+        </div>
+    </div>
+
+    <!-- Chơi game -->
+    <div id="game">
+        <div class="control">
+            <h1>Memomy game</h1>
+            <div class="time-game">
+                <img src="https://img.icons8.com/dotty/80/26e07f/love-time.png" />
+                <p id="time">00:00s</p>
+            </div>
+            <div class="step-game">
+                <img src="https://img.icons8.com/dotty/80/26e07f/month-in-love.png" />
+                <p id="step">0 bước</p>
+            </div>
+        </div>
+        <div class="game-container">
+            <div class="memory-game">
+                <div class="memory-card" data-name="nodejs">
+                    <img src="https://img.icons8.com/color/500/000000/nodejs.png" class="front-face" alt="Node">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="nodejs">
+                    <img src="https://img.icons8.com/color/500/000000/nodejs.png" class="front-face" alt="Node">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="json">
+                    <img src="https://img.icons8.com/color/500/000000/json.png" class="front-face" alt="Json">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="json">
+                    <img src="https://img.icons8.com/color/500/000000/json.png" class="front-face" alt="Json">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="angularjs">
+                    <img src="https://img.icons8.com/color/500/000000/angularjs.png" class="front-face" alt="Angular">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="angularjs">
+                    <img src="https://img.icons8.com/color/500/000000/angularjs.png" class="front-face" alt="Angular">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="jquery">
+                    <img src="https://img.icons8.com/ios/500/000000/jquery-filled.png" class="front-face" alt="Jquery">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="jquery">
+                    <img src="https://img.icons8.com/ios/500/000000/jquery-filled.png" class="front-face" alt="Jquery">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="react">
+                    <img src="https://img.icons8.com/ios/500/000000/react-native-filled.png" class="front-face"
+                        alt="React">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="react">
+                    <img src="https://img.icons8.com/ios/500/000000/react-native-filled.png" class="front-face"
+                        alt="React">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="codepen">
+                    <img src=" https://img.icons8.com/ios/500/000000/codepen-filled.png" class="front-face"
+                        alt="Codepen">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+                <div class="memory-card" data-name="codepen">
+                    <img src=" https://img.icons8.com/ios/500/000000/codepen-filled.png" class="front-face"
+                        alt="Codepen">
+                    <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                        class="back-face" alt="card-back">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kết thúc game -->
+    <div id="end-game">
+        <div class="info">
+            <h1>Kết thúc</h1>
+            <p>Chúc mừng bạn đã hoàn thành game trong</p>
+            <div class="box">
+                <div class="time-box">
+                    <img src="https://img.icons8.com/dotty/80/26e07f/love-time.png" />
+                    <p>30s</p>
+                </div>
+                <div class="step-box">
+                    <img src="https://img.icons8.com/dotty/80/26e07f/month-in-love.png" />
+                    <p>10 bước</p>
+                </div>
+            </div>
+            <div class="btns">
+                <button id="btn-play-again">Chơi lại</button>
+                <button id="btn-reload">Thoát game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Truy cập vào các phần tử DOM
+        const startGameEl = document.querySelector('#start-game');
+        const gameEl = document.querySelector('#game');
+
+        const levelOptionEl = document.querySelector('#level-option');
+        const memoryGameEl = document.querySelector('.memory-game');
+
+        const btnStartGame = document.querySelector('#btn-start-game');
+
+        const timeEl = document.querySelector('#time');
+        const stepEl = document.querySelector('#step');
+
+        // Khai báo biến
+        let level;
+        let time = 0;
+        let interval;
+
+        let sizes = {
+            2: {
+                row: 2,
+                col: 2,
+            },
+            4: {
+                row: 2,
+                col: 4,
+            },
+            6: {
+                row: 3,
+                col: 4,
+            },
+        };
+
+        let listCards = [
+            {
+                url:
+                    'https://i.pinimg.com/564x/9f/2f/72/9f2f72f1c63e6c62ac0ca3781e270975.jpg',
+                name: 'luffy',
+            },
+            {
+                url:
+                    'https://i.pinimg.com/236x/d3/3f/c0/d33fc0cd1bf76766555436c2307b94d7.jpg',
+                name: 'zoro',
+            },
+            {
+                url:
+                    'https://i.pinimg.com/236x/c2/b4/49/c2b4490285a27881586d3e8c49c4b565.jpg',
+                name: 'sanji',
+            },
+            {
+                url:
+                    'https://i.pinimg.com/236x/fb/a8/ce/fba8cec6aa3a5faa06b0d5f9a21401ed.jpg',
+                name: 'ace',
+            },
+            {
+                url:
+                    'https://i.pinimg.com/236x/74/60/51/7460514fb2e69b574011f4028fc159e3.jpg',
+                name: 'rayleigh',
+            },
+            {
+                url:
+                    'https://i.pinimg.com/236x/22/9c/d0/229cd0ef7f252de6aab514c0fbe5989b.jpg',
+                name: 'sabo',
+            },
+        ];
+
+        let cards;
+
+        // Đảo vị trí các phần tử trong array
+        function shuffle(arr) {
+            return arr.sort(function () {
+                return 0.5 - Math.random();
+            });
+        }
+
+        function renderCards(level) {
+            // Đảo vị trí các phần tử trong mảng card
+            listCards = shuffle(listCards);
+
+            // Cắt lấy số phần tử = level
+            let cardsSlice = listCards.slice(0, level);
+
+            // Nhân đôi mảng card
+            cards = [...cardsSlice, ...cardsSlice];
+
+            // Đảo vị trí phần tử trong mảng
+            cards = shuffle(cards);
+
+            // Set kích thước cho game board
+            let size = sizes[level];
+            memoryGameEl.style.gridTemplateColumns = `repeat(${size.col}, 190px)`;
+            memoryGameEl.style.gridTemplateRows = `repeat(${size.row}, 250px)`;
+
+            // Hiển thị lên trên giao diện
+            memoryGameEl.innerHTML = '';
+            for (let i = 0; i < cards.length; i++) {
+                const c = cards[i];
+                memoryGameEl.innerHTML += `
+            <div 
+                class="memory-card" 
+                data-name="${c.name}"
+                onclick="flipCard(this)"
+            >
+                <img src="${c.url}" class="front-face" alt="${c.name}">
+                <img src="https://i.pinimg.com/originals/b9/70/33/b97033a8708d2cbaf7d1990020a89a54.jpg"
+                    class="back-face" alt="card-back">
+            </div>
+        `;
+            }
+        }
+
+        function updateTime() {
+            time++;
+            timeEl.innerText = convertTime(time);
+        }
+
+        function convertTime(time) {
+            let minute = `0${Math.floor(time / 60)}`.slice(-2);
+            let second = `0${time % 60}`.slice(-2);
+            return `${minute}:${second}s`;
+        }
+
+
+        btnStartGame.addEventListener('click', function () {
+            // Lấy giá trị level game
+            level = Number(levelOptionEl.value);
+
+            // Ẩn START => show GAME
+            startGameEl.style.display = 'none';
+            gameEl.style.display = 'flex';
+
+            // Khởi tạo game (render card)
+            renderCards(level);
+
+            // Chạy thời gian
+            interval = setInterval(updateTime, 1000);
+        });
+    </script>
+</body>
+
+</html>
