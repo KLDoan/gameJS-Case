@@ -16,6 +16,7 @@ class Sprite {
     draw() {
         c.fillStyle = "red"
         c.fillRect(this.position.x, this.position.y, 50, this.height)
+        c.fillRect(this.position.x, this.position.y, 50, this.height)
     }
 
     update() {

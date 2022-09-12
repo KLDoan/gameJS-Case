@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(0deg, #22c1c3, #fdbb2d);
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 2em;
+            color: wheat;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Shooting plane</h1>
+    <canvas id="game" style="border: 3px solid #000000"></canvas>
+    <script src="player.js"></script>
+    <script src="enemy.js"></script>
+    <script src="bullet.js"></script>
+    <script>
+        const canvas = document.getElementById("game");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = 550;
+        canvas.height = 600;
+
+        const bulletController = new BulletController(canvas);
+        const player = new Player(
+            canvas.width / 2.2,
+            canvas.height / 1.3,
+            bulletController
+        );
+
+        const enemies = [
+            new Enemy(50, 20, "green", Math.floor(Math.random() * 100)),
+            new Enemy(150, 20, "red", Math.floor(Math.random() * 100)),
+            new Enemy(250, 20, "gold", Math.floor(Math.random() * 100)),
+            new Enemy(350, 20, "green", Math.floor(Math.random() * 100)),
+            new Enemy(450, 20, "gold", Math.floor(Math.random() * 100)),
+            new Enemy(50, 100, "green", Math.floor(Math.random() * 100)),
+            new Enemy(150, 100, "red", Math.floor(Math.random() * 100)),
+            new Enemy(250, 100, "gold", Math.floor(Math.random() * 100)),
+            new Enemy(350, 100, "green", Math.floor(Math.random() * 100)),
+            new Enemy(450, 100, "gold", Math.floor(Math.random() * 100)),
+        ];
+
+        function gameLoop() {
+            setCommonStyle();
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            bulletController.draw(ctx);
+            player.draw(ctx);
+            enemies.forEach((enemy) => {
+                if (bulletController.collideWith(enemy)) {
+                    if (enemy.health <= 0) {
+                        const index = enemies.indexOf(enemy);
+                        enemies.splice(index, 1);
+                    }
+                } else {
+                    enemy.draw(ctx);
+                }
+            });
+        }
+
+        function setCommonStyle() {
+            ctx.shadowColor = "#d53";
+            ctx.shadowBlur = 20;
+            ctx.lineJoin = "bevel";
+            ctx.lineWidth = 5;
+        }
+
+        setInterval(gameLoop, 1000 / 60);
+
+    </script>
+</body>
+
+</html>
