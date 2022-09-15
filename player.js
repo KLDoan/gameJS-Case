@@ -8,27 +8,29 @@ class Player {
         this.speed = 4;
 
         const image = new Image()
-        image.src = "img game/304860618_924762555147688_3087377642713221651_n.jpg"
+        image.src = "img game/player.png"
         this.image = image
 
         document.addEventListener("keydown", this.keydown);
         document.addEventListener("keyup", this.keyup);
     }
+    
 
     draw(ctx) {
         this.move();
         ctx.strokeStyle = "yellow";
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        // ctx.strokeRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = "black";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        // ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         // ctx.drawImage()
         this.shoot(this.image, this.x, this.y);
     }
-
+    //ham ban dan
     shoot() {
         if (this.shootPressed) {
-            const speed = 5;
-            const delay = 7;
+            const speed = 7;
+            const delay = 10;
             const damage = 1;
             const bulletX = this.x + this.width / 2;
             const bulletY = this.y;

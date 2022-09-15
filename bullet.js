@@ -1,4 +1,5 @@
 class Bullet {
+    // chon mau random tu array color
     colors = [
         "red",
         "blue",
@@ -11,7 +12,7 @@ class Bullet {
         "brown",
         "grey",
     ];
-
+    // class bullet constructors 
     constructor(x, y, speed, damage) {
         this.x = x;
         this.y = y;
@@ -22,6 +23,11 @@ class Bullet {
         this.height = 15;
         this.color = "red";
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        //sound
+
+        this.shootSound = new Audio("sounds_shoot.wav");
+        this.shootSound.volume = 0.1;
+
     }
 
     draw(ctx) {
@@ -58,6 +64,12 @@ class BulletController {
 
             this.timerTillNextBullet = delay;
         }
+        //
+        // if (this.soundEnabled) {
+        //     this.shootSound.currentTime = 0;
+        //     this.shootSound.play();
+        // }
+        //
 
         this.timerTillNextBullet--;
     }

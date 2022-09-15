@@ -1,15 +1,22 @@
 html {
     background: white;
 }
+
 * {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {
-    background:url(https://img.freepik.com/free-vector/abstract-duotone-background-with-motion-lines-effect_1017-30154.jpg?w=2000);
+    background: url(https://images2.alphacoders.com/101/101692.jpg);
     width: auto;
-    height: 690px;
+    height: 110vh;
     border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 .time_info {
@@ -18,6 +25,11 @@ body {
     background-color: #85FFBD;
     background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
     height: 250px;
+    width: 50%;
+    border: 2px;
+    border-radius: 50px;
+    margin: 10px;
+    padding: 0px;
 }
 
 @keyframes background_animate {
@@ -63,6 +75,9 @@ body {
     text-align: center;
     display: flex;
     justify-content: center;
+    align-content: center;
+    height: 50px;
+    width: 400px;
 }
 
 .opening {
@@ -90,22 +105,42 @@ i {
 .btn {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: auto;
 }
 
-.login_section {
+.log {
+    color: white;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 1px;
+    border-radius: 10px ;
+    background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3));
+    box-shadow: 7px 7px 60px black;
+}
+
+#logtxt {
+    justify-content: center;
+    text-align: center;
+    
+}
+
+#login_section {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    height: 200px;
+    display: none;
 }
 
 .title_opening {
     width: 100%;
-    height: 200px;
+    height: 300px;
     display: flex;
     justify-content: center;
     background-image: url(https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1);
-
+    margin-bottom: 10px;
+    background-size:contain;
 }
 
 .title_opening_h1 {
@@ -117,5 +152,6 @@ i {
 #user,
 #pass {
     width: auto;
-    height: 25px;
+    height: 40px;
+    border-radius: 20px;
 }
