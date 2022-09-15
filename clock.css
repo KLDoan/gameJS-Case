@@ -114,15 +114,15 @@ i {
     justify-content: center;
     align-items: center;
     top: 1px;
-    border-radius: 10px ;
-    background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3));
+    border-radius: 10px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     box-shadow: 7px 7px 60px black;
 }
 
 #logtxt {
     justify-content: center;
     text-align: center;
-    
+
 }
 
 #login_section {
@@ -131,6 +131,17 @@ i {
     margin-top: 20px;
     height: 200px;
     display: none;
+    animation: hoverlogin 1.5s linear;
+}
+
+@keyframes hoverlogin {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .title_opening {
@@ -140,7 +151,7 @@ i {
     justify-content: center;
     background-image: url(https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1);
     margin-bottom: 10px;
-    background-size:contain;
+    background-size: contain;
 }
 
 .title_opening_h1 {
