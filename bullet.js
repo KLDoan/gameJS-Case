@@ -48,6 +48,15 @@ class Bullet {
         }
         return false;
     }
+    shootsound(){
+         
+        if (this.soundEnabled) {
+            this.shootSound.currentTime = 0;
+            this.shootSound.play();
+        }
+        
+
+    }
 }
 // control bullet flow 
 class BulletController {
@@ -64,13 +73,7 @@ class BulletController {
 
             this.timerTillNextBullet = delay;
         }
-        //
-        // if (this.soundEnabled) {
-        //     this.shootSound.currentTime = 0;
-        //     this.shootSound.play();
-        // }
-        //
-
+       
         this.timerTillNextBullet--;
     }
 

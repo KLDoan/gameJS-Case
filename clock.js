@@ -25,7 +25,7 @@ function text_out() {
 
 }
 function reset_text() {
-    document.getElementById("footer_web").innerText = "This had been created by LongDoan(@KheLong) in 24/7/2022 on 6.37pm"
+    document.getElementById("footer_web").innerText = "This web had been created by LongDoan"
 }
 
 
